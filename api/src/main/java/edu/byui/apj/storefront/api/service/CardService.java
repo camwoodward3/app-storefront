@@ -1,15 +1,13 @@
-package edu.byui.apj.storefront.web.service;
+package edu.byui.apj.storefront.api.service;
 
-import edu.byui.apj.storefront.web.data.CsvCardRepository;
-import edu.byui.apj.storefront.web.model.Card;
+import edu.byui.apj.storefront.api.data.CsvCardRepository;
+import edu.byui.apj.storefront.api.model.Card;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
-import edu.byui.apj.storefront.web.model.Card;
 
 @Service
 public class CardService {
