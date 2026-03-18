@@ -29,4 +29,14 @@ public class WebClientConfig {
                 .baseUrl(mongoApiBaseUrl)
                 .build();
     }
+
+    @Value("${db.service.base-url}")
+    private String dbServiceBaseUrl;
+
+    @Bean
+    public WebClient dbServiceClient() {
+        return WebClient.builder()
+                .baseUrl(dbServiceBaseUrl)
+                .build();
+    }
 }

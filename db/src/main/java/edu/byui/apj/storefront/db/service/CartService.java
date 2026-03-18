@@ -7,6 +7,7 @@ import edu.byui.apj.storefront.db.repository.ItemRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,8 @@ public class CartService {
     }
 
     public Cart createCart() {
+        Cart cart = new Cart();
+        cart.setCreatedAt(Instant.now());
         return cartRepository.save(new Cart());
     }
 
@@ -29,7 +32,7 @@ public class CartService {
                 .orElseThrow(() -> new RuntimeException("Cart not found"));
     }
 
-    public Item addItemToCart(Long cartId, Long productId, String name, Double price, Integer quantity) {
+    public Item addItemToCart(Long cartId, String productId, String name, Double price, Integer quantity) {
         Cart cart = getCart(cartId);
 
         // Try merging with existing item for same productId
@@ -66,6 +69,11 @@ public class CartService {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Item not found"));
         itemRepository.delete(item);
+    }
+    public void clearCart(Long cartId) { // Could be an error
+        Cart cart = getCart(cartId);
+        cart.getItems().clear();
+        cartRepository.save(cart);
     }
 
 }
